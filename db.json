@@ -4,13 +4,13 @@
       "id": 1,
       "name": "Woody",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
-      "likes": 5
+      "likes": 8
     },
     {
       "id": 2,
       "name": "Buzz Lightyear",
       "image": "http://www.pngmart.com/files/6/Buzz-Lightyear-PNG-Transparent-Picture.png",
-      "likes": 8
+      "likes": 10
     },
     {
       "id": 3,
@@ -47,6 +47,30 @@
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": -2
+    },
+    {
+      "name": "Elmo",
+      "image": "https://slimages.macysassets.com/is/image/MCY/products/8/optimized/15106388_fpx.tif?op_sharpen=1&wid=500&hei=613&fit=fit,1&$filtersm$",
+      "likes": 1,
+      "id": 9
+    },
+    {
+      "name": "Elmo",
+      "image": "https://slimages.macysassets.com/is/image/MCY/products/8/optimized/15106388_fpx.tif?op_sharpen=1&wid=500&hei=613&fit=fit,1&$filtersm$",
+      "likes": 0,
+      "id": 10
+    },
+    {
+      "name": "Elmo",
+      "image": "https://slimages.macysassets.com/is/image/MCY/products/8/optimized/15106388_fpx.tif?op_sharpen=1&wid=500&hei=613&fit=fit,1&$filtersm$",
+      "likes": 0,
+      "id": 11
+    },
+    {
+      "name": "Disney pixer",
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.walmart.com%2Fip%2FDisney-Pixar-Toy-Story-4-Tinny-Marching-Band-Figure%2F271914574&psig=AOvVaw2k1BpZu_OB_zRibLWCcXCn&ust=1590896095992000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjVxffT2ukCFQAAAAAdAAAAABAQ",
+      "likes": 0,
+      "id": 12
     }
   ]
 }
