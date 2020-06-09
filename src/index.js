@@ -1,21 +1,28 @@
 let addToy = false;
+const addBtn = document.querySelector("#new-toy-btn");
+const toyFormContainer = document.querySelector(".container");
+let div = document.getElementById("toy-collection");
+//These are all of my global variables that I set.
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
   fetchToys();
-
   const addBtn = document.querySelector("#new-toy-btn");
-  const toyFormContainer = document.querySelector(".container");
+  const toyForm = document.querySelector(".container");
+  let div = document.getElementById("toy-collection");
+
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
     addToy = !addToy;
     if (addToy) {
-      toyFormContainer.style.display = "block";
+      toyForm.style.display = "block";
+      toyForm.addEventListener("submit", event => {
+        event.preventDefault()
+        postForm(event.target)
+      })
     } else {
       toyFormContainer.style.display = "none";
-    }
-    if (document.getElementById('new-toy-btn').clicked == true) {
-      toyForm()
     }
   });
 });
@@ -33,7 +40,7 @@ function fetchToys() {
 }
 
 function renderToys(toys) {
-  let div = document.getElementById("toy-collection")
+  let div = document.getElementById("toy-collection");
     toys.forEach(toy => {
       let card = document.createElement('div')
       card.className = "card"
@@ -51,6 +58,12 @@ function renderToys(toys) {
         card.appendChild(p)
 
         let button = document.createElement('button')
+
+        button.addEventListener('click', (e) => {
+          console.log(e.target.dataset);
+          likes(e)
+        })
+
         button.className = 'like-btn'
         button.innerHTML = "Like <3"
         card.appendChild(button)
@@ -59,14 +72,8 @@ function renderToys(toys) {
   })
 }
 
-function toyForm() {
-    
-      let newToy = {
-        name: document.getElementsByName("name"),
-        image: document.getElementsByName("image")
-      }
-
-      console.log(newToy)
+function postForm(toys) {
+  let div = document.getElementById("toy-collection");
     
       let configObject = {
         method: "POST",
@@ -74,7 +81,11 @@ function toyForm() {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify(newToy)
+        body: JSON.stringify({
+          "name": toys.name.value,
+          "image": toys.image.value,
+          "likes": 0
+        })
       };
 
       return fetch("http://localhost:3000/toys", configObject)
@@ -82,7 +93,28 @@ function toyForm() {
           return response.json();
         })
         .then(function(object) {
-          console.log(object);
+          let newToy = renderToys(object)
+          div.appendChild(newToy)
         })
 
+}
+
+function likes(e) {
+  let more = parseInt(e.target.previousElementSibling.innerText) + 1
+
+  fetch(`http://localhost:3000/toys/${e.target.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+
+      },
+      body: JSON.stringify({
+        "likes": more
+      })
+    })
+    .then(res => res.json())
+    .then((like_obj => {
+      e.target.previousElementSibling.innerText = `${more} likes`;
+    }))
 }
