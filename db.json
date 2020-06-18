@@ -4,19 +4,19 @@
       "id": 1,
       "name": "Woody",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
-      "likes": 5
+      "likes": 10
     },
     {
       "id": 2,
       "name": "Buzz Lightyear",
       "image": "http://www.pngmart.com/files/6/Buzz-Lightyear-PNG-Transparent-Picture.png",
-      "likes": 8
+      "likes": 9
     },
     {
       "id": 3,
       "name": "Mr. Potato Head",
       "image": "https://vignette.wikia.nocookie.net/universe-of-smash-bros-lawl/images/d/d8/Mr-potato-head-toy-story.gif/revision/latest?cb=20151129131217",
-      "likes": 3
+      "likes": 4
     },
     {
       "id": 4,
@@ -75,8 +75,14 @@
     {
       "name": "pancakes",
       "image": "http://umich.edu/~chemh215/W11HTML/SSG5/ssg5.2/FRex.png",
-      "likes": 0,
+      "likes": 2,
       "id": 13
+    },
+    {
+      "name": "Sam",
+      "image": "http://umich.edu/~chemh215/W11HTML/SSG5/ssg5.2/FRex.png",
+      "likes": 1,
+      "id": 14
     }
   ]
 }

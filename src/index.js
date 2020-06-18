@@ -2,17 +2,17 @@ let addToy = false
 
 // insertToys(allToys)
 document.addEventListener("DOMContentLoaded", () => {
-  function toyList(toy) {
-    let toyProperties = `
-        <div class="card">
-          <h2 class='toyName'>${toy.name}</h2>
-          <img src="${toy.image}" width="200"/>
-          <p>${toy.likes} likes!</p>
-          <button>Like</button>
-        </div>
-      `
-    document.querySelector('#toy-collection').insertAdjacentHTML('beforeend', toyProperties)
-  }
+  // function toyList(toy) {
+  //   let toyProperties = `
+  //       <div class="card">
+  //         <h2 class='toyName'>${toy.name}</h2>
+  //         <img src="${toy.image}" width="200"/>
+  //         <p>${toy.likes} likes!</p>
+  //         <button class=${toy.id}>Like</button>
+  //       </div>
+  //     `
+  //   document.querySelector('#toy-collection').insertAdjacentHTML('beforeend', toyProperties)
+  // }
     
   // add all toys to index.html from the api database
   function getAllToys() {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   getAllToys().then(toys => {
     toys.forEach(toy => {
       if (toy.image) {
-        toyList(toy)
+        renderToys(toy)
       }
     })
   })
@@ -74,6 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
     likeBtn.setAttribute('class', 'like-btn')
     likeBtn.setAttribute('id', toy.id)
     likeBtn.innerText = "like"
+    likeBtn.addEventListener("click", (e) => {
+      console.log('ya clicked')
+      console.log(e.target.dataset)
+      newLikes(e, likes)
+    })
 
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
@@ -83,10 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   // update likes
-  function newLikes() {
-    let addLike = parseInt(toy.likes.innerText) + 1
-    console.log('qtyOfLike', toy.likes)
-    let configObjPatch = {
+  function newLikes(e, likes) {
+    e.preventDefault()
+    let addLike = parseInt(likes.innerText) + 1
+    
+    let configLikes = {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -97,41 +103,32 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
     
-    fetch(`http://localhost:3000/toys/${e.target.id}`, configObjPatch)
+    fetch(`http://localhost:3000/toys/${e.target.id}`, configLikes)
       .then(resp => resp.json)
       .then(like_value => {
-        e.target.previousElementSiblings.innerText = `${addLike} likes`;
+        likes.innerText = `${addLike} likes`;
       })
   }
 
 
   // New Toy Like Button Event Listeners
-    let toyForm = document.querySelector(".container")
+  let toyForm = document.querySelector(".container")
+  
+  document.addEventListener("click", (e) => {
 
-    document.addEventListener("click", (e) => {
-      if (e.target.matches("#new-toy-btn")) {
-        addToy = !addToy
-        if (addToy) {
-          toyForm.style.display = "block";
-          toyForm.addEventListener('submit', (e) => { 
-            e.preventDefault()
-            newToy(e.target)
-          })
-        } 
-        else {
-          toyForm.style.display = "none";
-        }
-      }
-    })
-    document.addEventListener("click", (e) => {
-      console.log('clicked', 'you clicked it')
-      if (e.target.matches('#like-btn')) {
-
-        e.target.addEventListener('submit', (e) => { 
+    if (e.target.matches("#new-toy-btn")) {
+      addToy = !addToy
+      if (addToy) {
+        toyForm.style.display = "block";
+        toyForm.addEventListener('submit', (e) => { 
           e.preventDefault()
-          console.log(e.target.dataset)
-          newLikes(e)
+          newToy(e.target)
         })
+      } 
+      else {
+        toyForm.style.display = "none";
       }
-    })
+    }
+  })
+  
 })
