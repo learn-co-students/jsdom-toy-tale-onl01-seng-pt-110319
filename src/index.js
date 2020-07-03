@@ -2,7 +2,6 @@ let addToy = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
-
   const toyFormContainer = document.querySelector(".container");
     addBtn.addEventListener("click", () => {
     // hide & seek with the form
@@ -44,9 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
         toyFormContainer.style.display = "none";
         createToyForm.reset();
       })
+  });
 
-  })
-;
 
 
 function renderToys(toys) {
@@ -96,11 +94,14 @@ function renderToys(toys) {
 //      })
 //  })
 //};
+addLike();
+
 }
 
 function createToy(toy) {
   const toyCard=document.createElement('div');
   toyCard.className='card';
+  //toyCard.id = toy.id
   const h2=document.createElement('h2');
   h2.innerText=toy.name;
   const img=document.createElement('img');
@@ -125,3 +126,43 @@ function createToy(toy) {
   toyCard.appendChild(likeButton);
   return toyCard;
 };
+
+
+function addLike() {
+const likeButtons = document.querySelectorAll('button.like-btn')
+const collection = document.querySelector('#toy-collection');
+likeButtons.forEach((like,index) => {
+    like.addEventListener('click',(event)=>{
+    let toyCard=collection.childNodes[index];
+    let likesMsg=toyCard.querySelector('p');
+  //  console.log(likesMsg.innerText);
+    let likes = parseInt(likesMsg.innerText,10);
+  //  console.log(isNaN(likes));
+    if (isNaN(likes)) {
+      likes=0;
+    };
+    likes++;
+    //console.log(likes);
+    if (likes === 0) {
+      likesMsg.innerText='No likes '
+      }
+      else if (likes===1) {
+      likesMsg.innerText='1 like '
+      }
+      else {
+        likesMsg.innerText=`${likes} likes `
+      };
+
+    fetch(`http://localhost:3000/toys/${index+1}`,{
+          method: "PATCH",
+          headers: {
+            "Content-Type":"application/json",
+            "Accept":"application/json"
+          },
+          body: JSON.stringify({
+              "likes": likes // need to figure out how to updae
+            })
+        })
+ })
+})
+}
